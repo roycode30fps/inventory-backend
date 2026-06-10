@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 dns.setServers(['8.8.8.8', '1.1.1.1'])
 const client = express()
 
-client.use(cors())  // ← replaces your manual CORS headers
+client.use(cors())
 client.use(express.json())
 
 client.use((req, res, next) => {
@@ -19,11 +19,7 @@ client.use((req, res, next) => {
 client.use('/api/items', itemRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
-        client.listen(process.env.PORT || 4000, () => {
-            console.log('Connected db & Listening on port', process.env.PORT || 4000)
-        })
-    })
-    .catch((error) => {
-        console.log(error)
-    })
+    .then(() => console.log('Connected to DB'))
+    .catch((error) => console.log(error))
+
+module.exports = client
