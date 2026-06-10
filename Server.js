@@ -19,7 +19,11 @@ client.use((req, res, next) => {
 client.use('/api/items', itemRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('Connected to DB'))
-    .catch((error) => console.log(error))
-
-module.exports = client
+    .then(() => {
+        client.listen(process.env.PORT || 4000, () => {
+            console.log('Connected db & Listening on port', process.env.PORT || 4000)
+        })
+    })
+    .catch((error) => {
+        console.log(error)
+    })
