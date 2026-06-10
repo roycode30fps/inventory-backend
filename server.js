@@ -9,7 +9,9 @@ dns.setServers(['8.8.8.8', '1.1.1.1'])
 const client = express()
 
 client.use(cors({
-    origin: 'https://inventory-frontend-ten-neon.vercel.app'
+    origin: '*',
+    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type']
 }))
 client.use(express.json())
 
