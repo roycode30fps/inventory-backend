@@ -8,7 +8,9 @@ const mongoose = require('mongoose')
 dns.setServers(['8.8.8.8', '1.1.1.1'])
 const client = express()
 
-client.use(cors())
+client.use(cors({
+    origin: 'https://inventory-frontend-ten-neon.vercel.app'
+}))
 client.use(express.json())
 
 client.use((req, res, next) => {
