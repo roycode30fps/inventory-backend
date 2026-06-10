@@ -1,20 +1,15 @@
 require("dotenv").config();
 const dns = require('dns')
 const express = require('express')
+const cors = require('cors')
 const itemRoutes = require('./Routes/Items')
 const mongoose = require('mongoose')
 
 dns.setServers(['8.8.8.8', '1.1.1.1'])
 const client = express()
 
+client.use(cors())  // ← replaces your manual CORS headers
 client.use(express.json())
-client.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Headers', 'Content-Type')
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
-    if (req.method === 'OPTIONS') return res.sendStatus(200)
-    next()
-})
 
 client.use((req, res, next) => {
     console.log(req.path, req.method)
